@@ -1,0 +1,35 @@
+<?php 
+if(isset($this->error)){
+	echo '<h4 class="alert_error">'.$this->error.'</h4>';
+}else{
+	echo '<h4 class="alert_success">New Media Story Added!</h4>';
+}
+
+    $type = $_POST['mimetype'];
+    $xhr = $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
+
+    if ($type == 'xml') {
+        header('Content-type: text/xml');
+    }
+    else if ($type == 'json') {
+        // wrap json in a textarea if the request did not come from xhr
+        if (!$xhr) echo '<textarea></textarea>';
+    }
+    else if ($type == 'script') {
+        // wrap script in a textarea if the request did not come from xhr
+        if (!$xhr) echo '<textarea></textarea>';
+    }
+    else {
+        // return text var_dump for the html request
+        /*
+        echo "VAR DUMP:<p />";
+        var_dump($_POST);
+        foreach($_FILES as $file) {
+            $n = $file['name'];
+            $s = $file['size'];
+            if (!$n) continue;
+            echo "File: $n ($s bytes)";
+        }
+        */
+    }
+?> 

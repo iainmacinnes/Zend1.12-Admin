@@ -1,0 +1,66 @@
+<article class="module width_full">
+<?php 
+/*
+echo '<a href="add">Add a coupon.</a>';
+$table = "<table><th>ID</th><th>Facility</th><th>Tag Line</th><th>Translated</th><th>Edit</th><th>Remove</th>";
+foreach($this->result as $vals){
+	$table .= '<tr>';
+	$table .= '<td>'.$vals['couponid'].'</td>';
+	$table .= '<td>'.$vals['facility'].'</td>';
+	$table .= '<td>'.$vals['tagline'].'</td>';
+	$table .= '<td>'.(isset($vals['translated'])?'<a href="edit?couponid='.$vals['tran_couponid'].'">Edit Translated</a>':'<a href="translate?couponid='.$vals['couponid'].'">Translate</a>').'</td>';
+	$table .= '<td><a href="edit?couponid='.$vals['couponid'].'">Edit</a></td>';
+	$table .= '<td><a href="remove?couponid='.$vals['couponid'].'">Remove</a></td>';
+	$table .= '</tr>';
+}
+$table .= "</table>";
+echo $table;
+//var_dump($_SERVER);
+//var_dump($_ENV);
+*/
+
+$table = '
+<header><h3 class="tabs_involved">Coupons</h3>
+<!--
+	<ul class="tabs">
+		<li><a href="#tab1">Posts</a></li>
+		<li><a href="#tab2">Comments</a></li>
+	</ul>
+-->
+</header>
+
+<div class="tab_container">
+	<div id="tab1" class="tab_content">
+		<table class="tablesorter" cellspacing="0"> 
+		<thead> 
+			<tr> 
+   				<th>ID</th> 
+    			
+    			<th>Tag Line</th> 
+    			<th>Translated</th> 
+    			<th>Actions</th> 
+			</tr> 
+			</thead> 
+			<tbody>';
+foreach($this->result as $vals){
+	$table .= '
+				<tr>  
+   					<td>'.$vals['couponid'].'</td> 
+    				 
+    				<td>'.$vals['tagline'].'</td> 
+    				<td>'.(isset($vals['translated'])?'<a href="javascript://" onclick="updateModule({\'u\':\'coupons/edit?couponid='.$vals['tran_couponid'].'\'});">Edit Translated</a>':'<a href="javascript://" onclick="updateModule({\'u\':\'coupons/translate?couponid='.$vals['couponid'].'\'});">Translate</a>').'</td> 
+    				<td><input type="image" src="images/icn_edit.png" title="Edit" onclick="updateModule({\'u\':\'coupons/edit?couponid='.$vals['couponid'].'\'});">
+    				<input type="image" src="images/icn_trash.png" title="Trash" onclick="updateModule({\'u\':\'coupons/delete?id='.$vals['couponid'].'\'});"></td> 
+				</tr>';
+}
+	$table .= '
+			</tbody> 
+			</table>
+			</div><!-- end of #tab1 -->';
+$table .= '</div><!-- end of .tab_container -->';
+
+
+echo $table;
+
+?>
+</article>

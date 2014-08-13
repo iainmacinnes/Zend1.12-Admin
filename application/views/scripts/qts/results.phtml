@@ -1,0 +1,39 @@
+<article class="module width_full">
+<?php 
+$table = '
+<header><h3 class="tabs_involved">Results</h3>
+</header>
+<div class="tab_container">
+	<div id="tab1" class="tab_content">
+		<table class="tablesorter" cellspacing="0"> 
+		<thead> 
+			<tr> 
+    			<th>Accommodation Type</th> 
+    			<th>Business Name</th> 
+    			<th>License</th> 
+    			<th>Community</th> 
+    			<th>Actions</th> 
+			</tr> 
+			</thead> 
+			<tbody>';
+foreach($this->result as $vals){
+	$table .= '
+				<tr> 
+    				<td>'.$vals['accomtype'].'</td> 
+    				<td>'.$vals['business_name'].'</td> 
+    				<td>'.$vals['licensed'].'</td> 
+    				<td>'.$vals['community'].'</td> 
+    				<td><input type="image" src="images/icn_edit.png" title="Edit" onclick="updateModule({\'u\':\'qts/edit?qid='.$vals['ID'].'\'});">
+    				</td> 
+				</tr>';
+}
+	$table .= '
+			</tbody> 
+			</table>
+			</div>';
+			
+$table .= '</div>';
+echo $table;
+?>
+</article>
+

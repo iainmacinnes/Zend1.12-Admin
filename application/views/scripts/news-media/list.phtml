@@ -1,0 +1,91 @@
+<article class="module width_full">
+<?php 
+$table = "<table><th>ID</th><th>Title</th><th>Youtube</th><th>URL</th><th>Edit</th><th>Remove</th>";
+foreach($this->result as $vals){
+	$table .= '<tr>';
+	$table .= '<td>'.$vals['nid'].'</td>';
+	$table .= '<td>'.$vals['ntitle'].'</td>';
+	$table .= '<td>'.$vals['youtube'].'</td>';
+	$table .= '<td>'.$vals['url'].'</td>';
+	$table .= '<td><a href="#top" onClick="loadXMLDoc(\'/admin/tourism/news-media/edit?nid='.$vals['nid'].'\',\'mainform\');onPageload()">Edit</a></td>';
+	$table .= '<td><a href="#top" onClick="loadXMLDoc(\'/admin/tourism/news-media/remove?nid='.$vals['nid'].'\',\'mainform\');onPageload()">Remove</a></td>';
+	$table .= '</tr>';
+}
+$table .= "</table>";
+
+?>
+<?php 
+$table = '
+<header><h3 class="tabs_involved">Media Stories</h3>
+<!--
+	<ul class="tabs">
+		<li><a href="#tab1">Posts</a></li>
+		<li><a href="#tab2">Comments</a></li>
+	</ul>
+-->
+</header>
+
+<div class="tab_container">
+	<div id="tab1" class="tab_content">
+		<table class="tablesorter" cellspacing="0"> 
+		<thead> 
+			<tr> 
+    			<th>Title</th> 
+    			<th>Youtube</th> 
+    			<th>URL</th> 
+    			<th>Language</th> 
+    			<th>Actions</th> 
+			</tr> 
+			</thead> 
+			<tbody>';
+foreach($this->result as $vals){
+	$table .= '
+				<tr> 
+    				<td>'.$vals['ntitle'].'</td> 
+    				<td>'.$vals['youtube'].'</td> 
+    				<td>'.$vals['url'].'</td> 
+    				<td>'.$vals['lang'].'</td> 
+    				<td><input type="image" src="images/icn_edit.png" title="Edit" onclick="updateModule({\'u\':\'news-media/edit?nid='.$vals['nid'].'\'});">
+    				<input type="image" src="images/icn_trash.png" title="Trash" onclick="$(\'#timed-message\').load(\'news-media/remove?nid='.$vals['nid'].'\').show();updateModule({\'u\':\'news-media/listall\'});"></td> 
+				</tr>';
+}
+	$table .= '
+			</tbody> 
+			</table>
+			</div><!-- end of #tab1 -->';
+/*
+			<div id="tab2" class="tab_content">
+			<table class="tablesorter" cellspacing="0"> 
+			<thead> 
+				<tr> 
+   					<th></th> 
+    				<th>Comment</th> 
+    				<th>Posted by</th> 
+    				<th>Posted On</th> 
+    				<th>Actions</th> 
+				</tr> 
+			</thead> 
+			<tbody> 
+				<tr> 
+   					<td><input type="checkbox"></td> 
+    				<td>Lorem Ipsum Dolor Sit Amet</td> 
+    				<td>Mark Corrigan</td> 
+    				<td>5th April 2011</td> 
+    				<td><input type="image" src="images/icn_edit.png" title="Edit">
+    				<input type="image" src="images/icn_trash.png" title="Trash"></td> 
+				</tr>  
+			</tbody> 
+			</table>
+
+			</div><!-- end of #tab2 -->
+			*/ 
+			
+$table .= '</div><!-- end of .tab_container -->';
+
+
+echo $table;
+//var_dump($_SERVER);
+//var_dump($_ENV);
+
+?>
+</article>

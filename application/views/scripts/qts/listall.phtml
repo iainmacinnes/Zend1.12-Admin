@@ -1,0 +1,121 @@
+<script type="text/javascript">
+	$(".tablesorter").tablesorter(); 
+
+
+		$(".tab_content").hide(); //Hide all content
+		$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+		$(".tab_content:first").show(); //Show first tab content
+	
+		//On Click Event
+		$("ul.tabs li").click(function() {
+	
+			$("ul.tabs li").removeClass("active"); //Remove any "active" class
+			$(this).addClass("active"); //Add "active" class to selected tab
+			$(".tab_content").hide(); //Hide all tab content
+	
+			var activeTab = $(this).find("a").attr("href"); 
+			//Find the href attribute value to identify the active tab + content
+			$(activeTab).fadeIn(); //Fade in the active ID content
+			return false;
+		});
+	
+
+</script>
+<article class="module width_full">
+<?php 
+foreach($this->result as $vals){
+	$tab[$vals['accomtype']][] = array(
+		'business_name'=>$vals['business_name'],
+		'licensed'=>$vals['licensed'],
+		'community'=>$vals['community'],
+		'ID'=>$vals['ID']
+	);		
+}
+	
+$head =	'
+<table class="tablesorter" cellspacing="0"> 
+	<thead> 
+		<tr> 
+    		<th>Accommodation Type</th> 
+    		<th>Business Name</th> 
+    		<th>License</th> 
+    		<th>Community</th> 
+    		<th>Actions</th> 
+		</tr> 
+	</thead> 
+	<tbody>';
+$foot = '
+	</tbody> 
+</table>
+';
+
+$table = '
+<header><h3 class="tabs_involved">Results</h3>
+<ul class="tabs">
+   	<li><a href="#tab1">Accom</a></li>
+    <li><a href="#tab2">Camp</a></li>
+    <li><a href="#tab3">Trailer</a></li>
+</ul>
+</header>
+<div class="tab_container">';
+
+#Accom
+$table .= '<div id="tab1" class="tab_content">';
+$table .= $head;
+foreach($tab['accom'] as $vals){
+	$table .= '
+		<tr> 
+    		<td>Accom</td> 
+    		<td>'.$vals['business_name'].'</td> 
+    		<td>'.$vals['licensed'].'</td> 
+    		<td>'.$vals['community'].'</td> 
+    		<td><input type="image" src="images/icn_edit.png" title="Edit" onclick="updateModule({\'u\':\'qts/edit?qid='.$vals['ID'].'\'});">
+    		</td> 
+		</tr>';
+}
+
+$table .= $foot;
+$table .= '</div>';
+
+#Camp
+$table .= '<div id="tab2" class="tab_content">';
+$table .= $head;
+foreach($tab['camp'] as $vals){
+	$table .= '
+		<tr> 
+    		<td>Camp</td> 
+    		<td>'.$vals['business_name'].'</td> 
+    		<td>'.$vals['licensed'].'</td> 
+    		<td>'.$vals['community'].'</td> 
+    		<td><input type="image" src="images/icn_edit.png" title="Edit" onclick="updateModule({\'u\':\'qts/edit?qid='.$vals['ID'].'\'});">
+    		</td> 
+		</tr>';
+}
+
+$table .= $foot;
+$table .= '</div>';
+
+#Trailer
+$table .= '<div id="tab3" class="tab_content">';
+$table .= $head;
+foreach($tab['trailer'] as $vals){
+	$table .= '
+		<tr> 
+    		<td>Trailer</td> 
+    		<td>'.$vals['business_name'].'</td> 
+    		<td>'.$vals['licensed'].'</td> 
+    		<td>'.$vals['community'].'</td> 
+    		<td><input type="image" src="images/icn_edit.png" title="Edit" onclick="updateModule({\'u\':\'qts/edit?qid='.$vals['ID'].'\'});">
+    		</td> 
+		</tr>';
+}
+
+$table .= $foot;
+$table .= '</div>';
+
+
+$table .= '</div>';
+echo $table;
+?>
+</article>
+

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<style media="all" type="text/css">@import "/admin/tourism/js-css/main_admin.css";</style>
+	<script type="text/javascript" src="/admin/tourism/js-css/webtoolkit.aim.js"></script>
+	<script type="text/javascript" src="/admin/tourism/js-css/jquery-1.4.2.js"></script> 
+	<script type="text/javascript" src="/admin/tourism/js-css/jquery.validate.js"></script> 
+	<script language="javascript" type="text/javascript" src="/admin/tourism/js-css/calendarDateInput.js"></script>
+	<script type="text/javascript">
+		function startCallback() {
+			// make something useful before submit (onStart)
+			document.getElementById('nr').innerHTML = '<img src=loader.gif>';
+			document.getElementById('r').innerHTML = 'message sent';
+			return true;
+		}
+		function completeCallback(response) {
+			// make something useful after (onComplete)
+			document.getElementById('r').innerHTML = response;
+			document.getElementById('nr').innerHTML = '';
+			//loadXMLDoc();
+		}
+		var xmlhttp;
+		function loadXMLDoc(url,block='dr') {
+			xmlhttp=null;
+			if (window.XMLHttpRequest) {// code for IE7, Firefox, Opera, etc.
+				xmlhttp=new XMLHttpRequest();
+			} else if (window.ActiveXObject) {// code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			if (xmlhttp!=null) {
+				document.getElementById('nr').innerHTML="<img src=loader.gif>";
+				xmlhttp.open("GET",url,false);
+				xmlhttp.send(null);
+				if(xmlhttp.readyState  == 4){
+					if(xmlhttp.status  == 200){
+						document.getElementById(block).innerHTML=xmlhttp.responseText;
+					}else{
+						document.getElementById(block).innerHTML="Error code " + xmlhttp.status;
+					}
+				}
+				document.getElementById('nr').innerHTML = '';
+			}else{
+				alert("Your browser does not support XMLHTTP.");
+			}
+		}
+		function onPageload(){	
+			admin = document.getElementById('mainform');
+			//admin.getElementsByTagName("form")[0].onsubmit=function(){disableForm(this);return AIM.submit(this, {'onStart' : startCallback, 'onComplete' : completeCallback})};
+			admin.getElementsByTagName("form")[0].onsubmit=function(){return AIM.submit(this, {'onStart' : startCallback, 'onComplete' : completeCallback})};
+			loadXMLDoc("/admin/tourism/news-media/list/");
+		};
+		function disableForm(theform) {
+			for (i = 0; i < theform.length; i++) {
+			var tempobj = theform.elements[i];
+			if (tempobj.type.toLowerCase() == "submit")
+				tempobj.disabled = true;
+			}
+		}
+	</script>
+</head>
+<body onload="onPageload();">
+<a name="top"></a>
+<div id="main">
+	<div id="header">	
+		<ul id="top-navigation">
+		<!-- <li><span><span><a href="/admin/tourism/coupons">List coupons</a></span></span></li> -->
+		<li><span><span><a href="/admin/tourism/news-media">Media Stories</a></span></span></li>
+		</ul>
+	</div>
+	<div id="middle">
+		<div id="left-column"></div>
+		<div id="center-column">
+			<div class="top-bar"></div><br />
+		  <div class="select-bar">
+			<span class="button" id="nr"></span>
+			<div id="mainform">
+
+<!-- 
+<!DOCTYPE html>
+<html>
+<head>
+<?php //echo $this->doctype() ?>
+</head>
+<body>
+<a href="/admin/tourism/coupons">List coupons</a>
+-->
+<?php echo $this->layout()->content ?>
+<!-- 
+</body>
+</html>
+ -->
+ 
+ 			</div>
+			<br>
+			<span id="r"></span>
+		    </div>
+			<div id="dr" class="table">
+			</div>
+		</div>
+		<div id="right-column"></div>
+	</div>
+	<div id="footer"></div>
+</div>
+</body>
+</html>

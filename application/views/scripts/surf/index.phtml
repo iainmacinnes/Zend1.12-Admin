@@ -1,0 +1,42 @@
+<script  type="text/javascript">
+function getTide(){
+	var url = 'ajax/tide?tid=' + $('#park').val()
+	
+	$.getJSON(url, function(data) {
+		if(typeof data != 'undefined' && data != null && data != ""){
+			$('#tide1').val(data[0].cal_time);
+			$('#tide2').val(data[1].cal_time);
+			$('#tide3').val(data[2].cal_time);
+			$('#tide4').val(data[3].cal_time);
+			$('#tide5').val(data[4].cal_time);
+		}else{
+			//$('#operator-name').empty().append('No Operator Listed');
+		}
+	});		
+}
+<?php 
+echo $this->script;
+?>
+</script>
+
+<style>
+#save{
+	
+	display:block;
+	float:right;
+}
+</style>
+<article class="module width_full">
+<header><h3>Surf Conditions Editor</h3></header>
+	<div class="module_content">
+	<?php 
+		echo $this->form;
+		?>
+		<div class="clear"></div>
+	</div>
+<footer>
+	<div class="submit_link">
+	<a href="javascript://" onclick="getTide();">update today's tides</a>
+	</div>
+</footer>
+</article>

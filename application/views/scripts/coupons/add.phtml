@@ -1,0 +1,74 @@
+<script  type="text/javascript">
+$(function() {
+	$( "#startdate" ).datepicker();
+	$( "#startdate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+	$( "#enddate" ).datepicker();
+	$( "#enddate" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+});
+
+function getOperator(){
+	var url = 'ajax/operator?oid=' + $('#oid').val()
+	
+	$.getJSON(url, function(data) {
+		if(typeof data != 'undefined' && data != null && data != ""){
+			$('#operator-name').empty().append(data[0].name);
+			/*
+			$('#oid').append(data[0].name);			
+			$('#location').val(data[0].community);			
+			$.each(data, function(key, val) {
+				$('#rating').append('<option value="'+data[key].stars+'">'+data[key].stars+' - '+data[key].category+'</option>');
+			});
+			*/ 
+		}else{
+			$('#operator-name').empty().append('No Operator Listed');
+		}
+	});		
+}
+<?php 
+echo $this->script;
+?>
+</script>
+<style>
+#save{
+	display:block;
+	float:right;
+}
+
+#keywords-element label {
+	width:100px;
+	display:block;
+	float:left;
+}
+#keywords-element br {
+	width:10px;
+	display:block;
+	float:left;
+}
+#akeywords-element label {
+	width:100px;
+	display:block;
+	float:left;
+}
+#akeywords-element br {
+	width:10px;
+	display:block;
+	float:left;
+}
+dt {
+	display:block;
+	clear:both;
+	padding:6px;
+	font-weight:900;
+}
+</style>
+<article class="module width_full">
+<header><h3><?php echo $this->title ?></h3></header>
+	<div class="module_content">
+	
+	<div id="operator-name"></div>
+	<?php 
+	echo $this->form;
+	?>
+	</div>
+	<div id="result"></div>
+</article>

@@ -1,0 +1,14 @@
+<article class="module width_full">
+<header><h3 class="tabs_involved">Users</h3></header>
+<div class="tab_container">
+	<div id="tab1" class="tab_content">
+	<table class="tablesorter" cellspacing="0"> 
+			<tbody>
+<?php 
+foreach($this->users as $user){	
+	echo "<tr><td>".$user.' </td><td><a href="javascript://" onclick="updateModule({\'u\':\'users/edit?u='.$user.'\'});">Edit Permissions</a>'."</td></tr>";
+}
+?>
+	</div>
+</div>
+</article>
